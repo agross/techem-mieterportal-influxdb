@@ -1,0 +1,28 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    faraday (2.7.1)
+      faraday-net_http (>= 2.0, < 3.1)
+      ruby2_keywords (>= 0.0.4)
+    faraday-net_http (3.0.2)
+    influxdb-client (2.9.0)
+    rexml (3.2.5)
+    ruby2_keywords (0.0.5)
+    rubyzip (2.3.2)
+    selenium-webdriver (4.7.1)
+      rexml (~> 3.2, >= 3.2.5)
+      rubyzip (>= 1.2.2, < 3.0)
+      websocket (~> 1.0)
+    websocket (1.2.9)
+
+PLATFORMS
+  x86_64-darwin-22
+  x86_64-linux-musl
+
+DEPENDENCIES
+  faraday
+  influxdb-client
+  selenium-webdriver
+
+BUNDLED WITH
+   2.3.26

@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  chrome:
+    image: zenika/alpine-chrome:with-chromedriver
+    restart: unless-stopped
+    # Only required for local development.
+    # ports:
+    #   - "9515:9515"
+    # command:
+    #   - --log-level=INFO
+
+  fetcher:
+    image: techem-mieterportal-fetcher
+    build:
+      context: fetcher
+    env_file: .env
