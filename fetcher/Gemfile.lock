@@ -16,6 +16,8 @@ GEM
     websocket (1.2.9)
 
 PLATFORMS
+  aarch64-linux-musl
+  arm64-darwin-22
   x86_64-darwin-22
   x86_64-linux-musl
 
@@ -25,4 +27,4 @@ DEPENDENCIES
   selenium-webdriver
 
 BUNDLED WITH
-   2.3.26
+   2.3.7
