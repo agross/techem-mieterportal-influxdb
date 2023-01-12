@@ -64,11 +64,14 @@ class Portal
   end
 
   def self.accept_cookies
-    cookies = Wait.new(timeout: 15).until do
-      driver.find_element(:id,
-                          'CybotCookiebotDialogBodyLevelButtonLevelOptinAllowallSelection')
+    Wait.new(timeout: 15).until do
+      driver.find_element(:id, 'CybotCookiebotDialogBodyUnderlay')
     end
-    cookies.click
+
+    driver.execute_script(<<~SCRIPT)
+      document.querySelectorAll('#CybotCookiebotDialogBodyUnderlay, #CybotCookiebotDialog')
+              .forEach(x => x.remove())
+    SCRIPT
   end
 
   def self.extract_bearer_token
