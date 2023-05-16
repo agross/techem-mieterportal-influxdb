@@ -13,12 +13,6 @@ class InfluxDb
                    .add_field('amount', c['amount'])
 
       first = DateTime.new(*c['period'].split('-').map(&:to_i), 1)
-      last = first.next_month.prev_day
-
-      # [
-      #   ,
-      #   point.dup.time(last.to_time.to_i, WritePrecision::SECOND)
-      # ]
 
       point.dup.time(first.to_time.to_i, WritePrecision::SECOND)
     end
