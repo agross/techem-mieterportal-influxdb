@@ -4,6 +4,7 @@ services:
   chrome:
     image: zenika/alpine-chrome:with-chromedriver
     restart: unless-stopped
+    stop_grace_period: 1s
     # Only required for local development.
     # ports:
     #   - "9515:9515"
