@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   chrome:
     image: zenika/alpine-chrome:with-chromedriver
