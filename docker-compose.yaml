@@ -11,6 +11,10 @@ services:
 
   fetcher:
     image: techem-mieterportal-fetcher
+    pull_policy: never
     build:
       context: fetcher
     env_file: .env
+    depends_on:
+      chrome:
+        condition: service_started

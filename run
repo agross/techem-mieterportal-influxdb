@@ -1,0 +1,7 @@
+#!/usr/bin/env zsh
+
+set -e
+
+cd ${0:A:h}
+
+docker compose run fetcher
