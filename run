@@ -4,4 +4,7 @@ set -e
 
 cd ${0:A:h}
 
-docker compose run fetcher
+docker compose up \
+               --remove-orphans \
+               --exit-code-from \
+               fetcher
