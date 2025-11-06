@@ -19,7 +19,7 @@ class InfluxDb
 
     Client.use(address,
       token,
-      use_ssl: false,
+      use_ssl: address.start_with?('https://'),
       org: org,
       bucket: bucket,
       debugging: true,
