@@ -1,6 +1,6 @@
 FROM ruby:3.4.7-alpine
 
-ENV LANG C.UTF-8
+ENV LANG=C.UTF-8
 
 WORKDIR /app
 
