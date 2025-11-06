@@ -3,13 +3,17 @@ GEM
   specs:
     base64 (0.2.0)
     csv (3.3.5)
-    faraday (2.9.0)
-      faraday-net_http (>= 2.0, < 3.2)
-    faraday-net_http (3.1.0)
-      net-http
+    faraday (2.14.0)
+      faraday-net_http (>= 2.0, < 3.5)
+      json
+      logger
+    faraday-net_http (3.4.1)
+      net-http (>= 0.5.0)
     influxdb-client (3.2.0)
       csv
-    net-http (0.4.1)
+    json (2.15.2)
+    logger (1.7.0)
+    net-http (0.7.0)
       uri
     rexml (3.2.6)
     rubyzip (2.3.2)
@@ -18,7 +22,7 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
-    uri (0.13.0)
+    uri (0.13.3)
     websocket (1.2.10)
 
 PLATFORMS
@@ -27,6 +31,7 @@ PLATFORMS
   arm64-darwin-23
   arm64-darwin-25
   x86_64-darwin-22
+  x86_64-linux
   x86_64-linux-musl
 
 DEPENDENCIES
