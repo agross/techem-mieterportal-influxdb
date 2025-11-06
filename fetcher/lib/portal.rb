@@ -20,27 +20,20 @@ class Portal
 
       accept_cookies
 
-      begin
-        attempts ||= 1
+      warn 'Finding login button'
+      login = driver.find_element(:css, 'button[data-test-id="cta-global-header-login"]')
 
-        driver.find_element(:css, 'button[data-test-id="cta-global-header-login"]')
-              .click
-      rescue Error::ElementClickInterceptedError
-        accept_cookies
+      warn 'Clicking login button'
+      login.click
 
-        if attempts += 1 <= 5
-          warn 'Retrying because click on login button was intercepted'
-          retry
-        else
-          raise 'Failed to click login button'
-        end
-      end
-
+      warn 'Filling login form'
       driver.find_element(:id, 'signInName').send_keys(user)
       driver.find_element(:id, 'password').send_keys(password)
-      driver.find_element(:css, 'button[type="submit"]').click
+      warn 'Submitting login form'
+      driver.find_element(:css, 'button[type="submit"]').send_keys(:return)
 
-      Wait.new.until do
+      wait.until do
+        warn 'Expecting consumptions page'
         driver.current_url.include?('/consumptions')
       end
 
@@ -63,11 +56,15 @@ class Portal
     end
   end
 
-  def self.accept_cookies
-    Wait.new(timeout: 15).until do
-      driver.find_element(:id, 'CybotCookiebotDialogBodyUnderlay')
-    end
+  def self.wait
+    Wait.new(timeout: driver.manage.timeouts.implicit_wait, interval: 1)
+  end
 
+  def self.accept_cookies
+    warn 'Finding cookie underlay'
+    driver.find_element(:id, 'CybotCookiebotDialogBodyUnderlay')
+
+    warn 'Removing cookie underlay'
     driver.execute_script(<<~SCRIPT)
       document.querySelectorAll('#CybotCookiebotDialogBodyUnderlay, #CybotCookiebotDialog')
               .forEach(x => x.remove())
@@ -75,6 +72,8 @@ class Portal
   end
 
   def self.extract_bearer_token
+    warn 'Extracting bearer token'
+
     # Extract JSON items from local storage (not all are parsable as JSON).
     values = driver.local_storage.map do |k, v|
       begin
