@@ -87,7 +87,8 @@ class Portal
     error = ->() { raise 'Could not find bearer token' }
     token = values.find(error) do |v|
       v['credentialType'] == 'AccessToken' &&
-      v['tokenType'] == 'Bearer'
+      v['tokenType'] == 'Bearer' &&
+      v['target'] == 'https://techemtenantportal.onmicrosoft.com/eedo-be-consumption-service/access_as_user'
     end
 
     token['secret']
