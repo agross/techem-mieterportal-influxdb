@@ -16,12 +16,12 @@ GEM
     net-http (0.7.0)
       uri
     rexml (3.4.4)
-    rubyzip (3.2.2)
-    selenium-webdriver (4.38.0)
+    rubyzip (2.4.1)
+    selenium-webdriver (4.29.1)
       base64 (~> 0.2)
       logger (~> 1.4)
       rexml (~> 3.2, >= 3.2.5)
-      rubyzip (>= 1.2.2, < 4.0)
+      rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
     uri (1.1.1)
     websocket (1.2.11)
@@ -37,7 +37,7 @@ PLATFORMS
 DEPENDENCIES
   faraday
   influxdb-client
-  selenium-webdriver
+  selenium-webdriver (= 4.29.1)
 
 BUNDLED WITH
    2.3.7
