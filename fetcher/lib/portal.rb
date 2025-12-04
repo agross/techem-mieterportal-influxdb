@@ -75,10 +75,11 @@ class Portal
     warn 'Extracting bearer token'
 
     # Extract JSON items from local storage (not all are parsable as JSON).
-    values = driver.local_storage.map do |k, v|
+    local_storage = driver.execute_script('return window.localStorage')
+    values = local_storage.map do |k, v|
       begin
         JSON.parse(v)
-      rescue JSON::ParserError
+      rescue JSON::ParserError, TypeError
         nil
       end
     end

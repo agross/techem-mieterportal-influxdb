@@ -4,6 +4,4 @@ source 'https://rubygems.org'
 
 gem 'faraday'
 gem 'influxdb-client'
-# The last version to support local_storage. Removed without replacement by
-# https://github.com/SeleniumHQ/selenium/commit/7346f7314b74b72fad949098f75187cfc86e4bce
-gem 'selenium-webdriver', '4.29.1'
+gem 'selenium-webdriver'
