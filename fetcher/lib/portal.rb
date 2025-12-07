@@ -1,4 +1,5 @@
 require 'json'
+require 'jwt'
 require 'selenium-webdriver'
 
 class Portal
@@ -14,7 +15,7 @@ class Portal
       ]
     )
 
-  def self.log_in_and_get_bearer_token(user, password)
+  def self.log_in(user, password)
     begin
       driver.get('https://mieter.techem.de/')
 
@@ -37,7 +38,9 @@ class Portal
         driver.current_url.include?('/consumptions')
       end
 
-      extract_bearer_token
+      token = extract_bearer_token
+      residential_unit = extract_residential_unit(token)
+      [residential_unit, token]
     ensure
       driver.quit
     end
@@ -93,5 +96,14 @@ class Portal
     end
 
     token['secret']
+  end
+
+  def self.extract_residential_unit(token)
+    jwt = JWT::EncodedToken.new(token)
+    jwt
+      .unverified_payload["rentalAgreements"]
+      .first
+      .split(';')
+      .first
   end
 end
