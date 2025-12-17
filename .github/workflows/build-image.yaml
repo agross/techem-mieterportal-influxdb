@@ -1,0 +1,69 @@
+name: Build image
+
+on:
+  pull_request:
+  push:
+  workflow_dispatch:
+
+# Cancel previous runs when a new commit is pushed.
+concurrency:
+  group: ${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-image:
+    name: Build image
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: write
+
+    env:
+      # renovate: docker=ghcr.io/ansible-community/community-ee-minimal
+      version: 2.20.1-1
+
+    if: >-
+      github.event_name != 'pull_request' ||
+      github.event.pull_request.head.repo.full_name != github.event.pull_request.base.repo.full_name
+
+    steps:
+      - name: Get latest code
+        uses: actions/checkout@v6
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to container registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: $
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract metadata from build
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: |
+            ghcr.io/${{ github.repository }}-fetcher
+          # Generate Docker tags based on the following events/attributes.
+          # https://github.com/docker/metadata-action#tags-input
+          tags: |
+            type=ref,event=pr
+            type=ref,event=branch
+            # Set latest tag for the default branch.
+            type=raw,value=latest,enable={{ is_default_branch }}
+
+      - name: Build and push
+        uses: docker/build-push-action@v6
+        with:
+          context: ./fetcher
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}

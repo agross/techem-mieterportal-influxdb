@@ -10,7 +10,7 @@ services:
     #   - --log-level=INFO
 
   fetcher:
-    image: techem-mieterportal-fetcher
+    image: ghcr.io/agross/techem-mieterportal-influxdb-fetcher
     pull_policy: never
     build:
       context: fetcher
