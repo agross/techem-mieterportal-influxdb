@@ -6,3 +6,8 @@ gem 'jwt'
 gem 'faraday'
 gem 'influxdb-client'
 gem 'selenium-webdriver'
+
+group :development do
+  gem 'awesome_print'
+  gem 'pry-byebug'
+end

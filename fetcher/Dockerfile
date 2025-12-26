@@ -8,8 +8,11 @@ RUN apk add --no-cache \
             build-base
 
 COPY Gemfile Gemfile.lock ./
+
 RUN bundle config set --global frozen 1 && \
-    bundle install
+    bundle config set --global without development
+
+RUN bundle install
 
 COPY . ./
 
