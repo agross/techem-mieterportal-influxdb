@@ -22,7 +22,7 @@ class Portal
       accept_cookies
 
       warn 'Finding login button'
-      login = driver.find_element(:css, 'button[data-test-id="cta-global-header-login"]')
+      login = driver.find_element(:css, 'button.btn-outline-primary')
 
       warn 'Clicking login button'
       login.click

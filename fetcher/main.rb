@@ -12,7 +12,6 @@ INFLUXDB_TOKEN = ENV.fetch('INFLUXDB_TOKEN')
 INFLUXDB_ORG = ENV.fetch('INFLUXDB_ORG')
 INFLUXDB_BUCKET = ENV.fetch('INFLUXDB_BUCKET')
 
-
 residential_unit, token = Portal.log_in(USER, PASSWORD)
 consumptions = Consumptions.request(residential_unit, token)
 InfluxDb.store(INFLUXDB_ADDRESS,
