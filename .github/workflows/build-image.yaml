@@ -18,10 +18,6 @@ jobs:
       contents: read
       packages: write
 
-    env:
-      # renovate: docker=ghcr.io/ansible-community/community-ee-minimal
-      version: 2.20.1-1
-
     steps:
       - name: Get latest code
         uses: actions/checkout@v6
