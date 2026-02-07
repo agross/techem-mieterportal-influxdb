@@ -2,9 +2,9 @@
 
 source 'https://rubygems.org'
 
-gem 'jwt'
 gem 'faraday'
 gem 'influxdb-client'
+gem 'jwt'
 gem 'selenium-webdriver'
 
 group :development do

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'faraday'
 
 class Consumptions
@@ -6,9 +8,8 @@ class Consumptions
 
     http = Faraday.new(url: base_uri,
                        headers: {
-                        Authorization: "Bearer #{bearer_token}"
-                       }
-                      ) do |f|
+                         Authorization: "Bearer #{bearer_token}"
+                       }) do |f|
       f.response(:json) # Decode response bodies as JSON.
     end
 

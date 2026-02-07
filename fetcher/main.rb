@@ -1,8 +1,10 @@
 #!/usr/bin/env ruby
 
-require_relative './lib/portal.rb'
-require_relative './lib/consumptions.rb'
-require_relative './lib/influxdb.rb'
+# frozen_string_literal: true
+
+require_relative './lib/portal'
+require_relative './lib/consumptions'
+require_relative './lib/influxdb'
 
 USER = ENV.fetch('PORTAL_USER')
 PASSWORD = ENV.fetch('PORTAL_PASSWORD')

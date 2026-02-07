@@ -1,22 +1,20 @@
+# frozen_string_literal: true
+
 require 'json'
 require 'jwt'
 require 'selenium-webdriver'
 
 class Portal
-  include Selenium::WebDriver
+  OPTIONS = Selenium::WebDriver::Chrome::Options.new(args: %w[
+                                                       headless
+                                                       no-sandbox
+                                                       disable-gpu
+                                                       disable-software-rasterizer
+                                                       disable-dev-shm-usage
+                                                     ])
 
-  OPTIONS = Chrome::Options.new(
-      args: %w[
-        headless
-        no-sandbox
-        disable-gpu
-        disable-software-rasterizer
-        disable-dev-shm-usage
-      ]
-    )
-
-  def self.log_in(user, password)
-    begin
+  class << self
+    def log_in(user, password)
       driver.get('https://mieter.techem.de/')
 
       accept_cookies
@@ -44,66 +42,65 @@ class Portal
     ensure
       driver.quit
     end
-  end
 
-  private
+    private
 
-  def self.driver
-    @driver ||= begin
-      driver = Selenium::WebDriver.for(:remote,
-                                       url: 'http://chrome:9515',
-                                       options: OPTIONS)
-      driver.manage.timeouts.implicit_wait = 10
+    def driver
+      @driver ||= begin
+        driver = Selenium::WebDriver.for(:remote,
+                                         url: 'http://chrome:9515',
+                                         options: OPTIONS)
+        driver.manage.timeouts.implicit_wait = 10
 
-      driver
+        driver
+      end
     end
-  end
 
-  def self.wait
-    Wait.new(timeout: driver.manage.timeouts.implicit_wait, interval: 1)
-  end
+    def wait
+      Selenium::WebDriver::Wait.new(timeout: driver.manage.timeouts.implicit_wait,
+                                    interval: 1)
+    end
 
-  def self.accept_cookies
-    warn 'Finding cookie underlay'
-    driver.find_element(:id, 'CybotCookiebotDialogBodyUnderlay')
+    def accept_cookies
+      warn 'Finding cookie underlay'
+      driver.find_element(:id, 'CybotCookiebotDialogBodyUnderlay')
 
-    warn 'Removing cookie underlay'
-    driver.execute_script(<<~SCRIPT)
-      document.querySelectorAll('#CybotCookiebotDialogBodyUnderlay, #CybotCookiebotDialog')
-              .forEach(x => x.remove())
-    SCRIPT
-  end
+      warn 'Removing cookie underlay'
+      driver.execute_script(<<~SCRIPT)
+        document.querySelectorAll('#CybotCookiebotDialogBodyUnderlay, #CybotCookiebotDialog')
+                .forEach(x => x.remove())
+      SCRIPT
+    end
 
-  def self.extract_bearer_token
-    warn 'Extracting bearer token'
+    def extract_bearer_token
+      warn 'Extracting bearer token'
 
-    # Extract JSON items from local storage (not all are parsable as JSON).
-    local_storage = driver.execute_script('return window.localStorage')
-    values = local_storage.map do |k, v|
-      begin
+      # Extract JSON items from local storage (not all are parsable as JSON).
+      local_storage = driver.execute_script('return window.localStorage')
+      values = local_storage.map do |_k, v|
         JSON.parse(v)
       rescue JSON::ParserError, TypeError
         nil
       end
+
+      # Extract bearer token from local storage.
+      error = -> { raise 'Could not find bearer token' }
+      token = values.find(error) do |v|
+        v['credentialType'] == 'AccessToken' &&
+          v['tokenType'] == 'Bearer' &&
+          v['target'] == 'https://techemtenantportal.onmicrosoft.com/eedo-be-consumption-service/access_as_user'
+      end
+
+      token['secret']
     end
 
-    # Extract bearer token from local storage.
-    error = ->() { raise 'Could not find bearer token' }
-    token = values.find(error) do |v|
-      v['credentialType'] == 'AccessToken' &&
-      v['tokenType'] == 'Bearer' &&
-      v['target'] == 'https://techemtenantportal.onmicrosoft.com/eedo-be-consumption-service/access_as_user'
+    def extract_residential_unit(token)
+      jwt = JWT::EncodedToken.new(token)
+      jwt
+        .unverified_payload['rentalAgreements']
+        .first
+        .split(';')
+        .first
     end
-
-    token['secret']
-  end
-
-  def self.extract_residential_unit(token)
-    jwt = JWT::EncodedToken.new(token)
-    jwt
-      .unverified_payload["rentalAgreements"]
-      .first
-      .split(';')
-      .first
   end
 end
