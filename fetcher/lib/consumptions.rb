@@ -4,6 +4,8 @@ require 'faraday'
 
 class Consumptions
   def self.request(residential_unit, bearer_token)
+    warn "Requesting consumptions for residential unit #{residential_unit}"
+
     base_uri = "https://mieter.techem.de/api/v1/consumptions/residential-units/#{residential_unit}/consumptions/"
 
     http = Faraday.new(url: base_uri,

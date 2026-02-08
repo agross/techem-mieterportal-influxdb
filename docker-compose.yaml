@@ -1,13 +1,15 @@
 services:
   chrome:
-    image: zenika/alpine-chrome:124-with-chromedriver
-    restart: unless-stopped
+    image: ghcr.io/browserless/chromium
     stop_grace_period: 1s
-    # Only required for local development.
-    # ports:
-    #   - "9515:9515"
-    # command:
-    #   - --log-level=INFO
+    healthcheck:
+      start_interval: 1s
+      start_period: 10s
+      interval: 1s
+      test:
+        - CMD
+        - wget
+        - http://localhost:3000/active?
 
   fetcher:
     image: ghcr.io/agross/techem-mieterportal-influxdb-fetcher
@@ -15,6 +17,8 @@ services:
     build:
       context: fetcher
     env_file: .env
+    volumes:
+      - ./screenshots:/screenshots
     depends_on:
       chrome:
-        condition: service_started
+        condition: service_healthy

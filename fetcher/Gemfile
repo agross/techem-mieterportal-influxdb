@@ -3,9 +3,10 @@
 source 'https://rubygems.org'
 
 gem 'faraday'
+gem 'ferrum'
 gem 'influxdb-client'
 gem 'jwt'
-gem 'selenium-webdriver'
+gem 'watir'
 
 group :development do
   gem 'awesome_print'
