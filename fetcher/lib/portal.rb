@@ -3,7 +3,7 @@
 require 'ferrum'
 require 'json'
 require 'jwt'
-require 'watir'
+require_relative './wait'
 
 class Portal
   class << self
@@ -13,13 +13,13 @@ class Portal
       accept_cookies
 
       warn 'Finding login button'
-      login = Watir::Wait.until { driver.at_css('button.btn-outline-primary') }
+      login = Wait.until { driver.at_css('button.btn-outline-primary') }
 
       warn 'Clicking login button'
       login.click
 
       warn 'Filling login form'
-      Watir::Wait.until do
+      Wait.until do
         u = driver.at_css('input#signInName')
         p = driver.at_css('#password')
 
@@ -31,7 +31,7 @@ class Portal
       warn 'Submitting login form'
       driver.at_css('button[type="submit"]').scroll_into_view.click
 
-      Watir::Wait.until(timeout: 10) do
+      Wait.until(timeout: 10) do
         warn "Expecting consumptions page #{driver.current_url}"
         driver.current_url.include?('/consumptions')
       end
@@ -58,7 +58,7 @@ class Portal
 
     def accept_cookies
       warn 'Finding cookie underlay'
-      Watir::Wait.until { driver.at_css('#CybotCookiebotDialogBodyUnderlay') }
+      Wait.until { driver.at_css('#CybotCookiebotDialogBodyUnderlay') }
 
       warn 'Removing cookie underlay'
       elements = driver.css('#CybotCookiebotDialogBodyUnderlay, #CybotCookiebotDialog')
