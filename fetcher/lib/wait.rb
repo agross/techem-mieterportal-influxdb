@@ -15,7 +15,7 @@ class Wait
         sleep(interval)
       end
 
-      raise TimeoutError
+      raise "Timeout after waiting for #{timeout} seconds"
     end
   end
 end
