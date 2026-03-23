@@ -1,7 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    addressable (2.8.8)
+    addressable (2.8.9)
       public_suffix (>= 2.0.2, < 8.0)
     awesome_print (1.9.2)
     base64 (0.3.0)
@@ -16,7 +16,7 @@ GEM
       logger
     faraday-net_http (3.4.2)
       net-http (~> 0.5)
-    ferrum (0.17.1)
+    ferrum (0.17.2)
       addressable (~> 2.5)
       base64 (~> 0.2)
       concurrent-ruby (~> 1.1)
@@ -39,7 +39,7 @@ GEM
     pry-byebug (3.12.0)
       byebug (~> 13.0)
       pry (>= 0.13, < 0.17)
-    public_suffix (7.0.2)
+    public_suffix (7.0.5)
     reline (0.6.3)
       io-console (~> 0.5)
     uri (1.1.1)
@@ -67,7 +67,7 @@ DEPENDENCIES
   pry-byebug
 
 CHECKSUMS
-  addressable (2.8.8) sha256=7c13b8f9536cf6364c03b9d417c19986019e28f7c00ac8132da4eb0fe393b057
+  addressable (2.8.9) sha256=cc154fcbe689711808a43601dee7b980238ce54368d23e127421753e46895485
   awesome_print (1.9.2) sha256=e99b32b704acff16d768b3468680793ced40bfdc4537eb07e06a4be11133786e
   base64 (0.3.0) sha256=27337aeabad6ffae05c265c450490628ef3ebd4b67be58257393227588f5a97b
   byebug (13.0.0) sha256=d2263efe751941ca520fa29744b71972d39cbc41839496706f5d9b22e92ae05d
@@ -76,7 +76,7 @@ CHECKSUMS
   csv (3.3.5) sha256=6e5134ac3383ef728b7f02725d9872934f523cb40b961479f69cf3afa6c8e73f
   faraday (2.14.1) sha256=a43cceedc1e39d188f4d2cdd360a8aaa6a11da0c407052e426ba8d3fb42ef61c
   faraday-net_http (3.4.2) sha256=f147758260d3526939bf57ecf911682f94926a3666502e24c69992765875906c
-  ferrum (0.17.1) sha256=51d591120fc593e5a13b5d9d6474389f5145bb92a91e36eab147b5d096c8cbe7
+  ferrum (0.17.2) sha256=2c2540a850b211a46f4d81de21bfd62048f507e4c327d1807225c3823c17e6ee
   influxdb-client (3.2.0) sha256=dc1e8ec80542f64c9f31af6d9bfa4c147474bf32b9179a7f0cab970793b8e1f2
   io-console (0.8.2) sha256=d6e3ae7a7cc7574f4b8893b4fca2162e57a825b223a177b7afa236c5ef9814cc
   json (2.18.1) sha256=fe112755501b8d0466b5ada6cf50c8c3f41e897fa128ac5d263ec09eedc9f986
@@ -86,7 +86,7 @@ CHECKSUMS
   net-http (0.9.1) sha256=25ba0b67c63e89df626ed8fac771d0ad24ad151a858af2cc8e6a716ca4336996
   pry (0.16.0) sha256=d76c69065698ed1f85e717bd33d7942c38a50868f6b0673c636192b3d1b6054e
   pry-byebug (3.12.0) sha256=594e094ae8a8390a7ad4c7b36ae36e13304ed02664c67417d108dc5f7213d1b7
-  public_suffix (7.0.2) sha256=9114090c8e4e7135c1fd0e7acfea33afaab38101884320c65aaa0ffb8e26a857
+  public_suffix (7.0.5) sha256=1a8bb08f1bbea19228d3bed6e5ed908d1cb4f7c2726d18bd9cadf60bc676f623
   reline (0.6.3) sha256=1198b04973565b36ec0f11542ab3f5cfeeec34823f4e54cebde90968092b1835
   uri (1.1.1) sha256=379fa58d27ffb1387eaada68c749d1426738bd0f654d812fcc07e7568f5c57c6
   webrick (1.9.2) sha256=beb4a15fc474defed24a3bda4ffd88a490d517c9e4e6118c3edce59e45864131
