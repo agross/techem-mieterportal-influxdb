@@ -7,6 +7,9 @@
     ':enableVulnerabilityAlerts',
     ':rebaseStalePrs',
     ':semanticCommitsDisabled',
+    ':maintainLockFilesWeekly',
+    ':automergeBranch',
+    ':automergeMinor',
   ],
   labels: [
     'dependencies',
