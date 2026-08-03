@@ -10,8 +10,6 @@ class Portal
     def log_in(user, password)
       driver.go_to('https://mieter.techem.de/')
 
-      accept_cookies
-
       warn 'Finding login button'
       login = Wait.until { driver.at_css('button.btn-outline-primary') }
 
