@@ -2,12 +2,13 @@
 
 source 'https://rubygems.org'
 
+gem 'base64'
 gem 'faraday'
-gem 'ferrum'
 gem 'influxdb-client'
-gem 'jwt'
 
 group :development do
+  gem 'minitest'
+
   gem 'awesome_print'
   gem 'pry-byebug'
 end

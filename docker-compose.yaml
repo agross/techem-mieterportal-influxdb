@@ -1,26 +1,7 @@
 services:
-  chrome:
-    image: ghcr.io/browserless/chromium
-    environment:
-      DEBUG: browserless:*,-trace
-    stop_grace_period: 1s
-    healthcheck:
-      start_interval: 1s
-      start_period: 10s
-      interval: 1s
-      test:
-        - CMD
-        - wget
-        - http://localhost:3000/active?
-
   fetcher:
     image: ghcr.io/agross/techem-mieterportal-influxdb-fetcher
     pull_policy: never
     build:
       context: fetcher
     env_file: .env
-    volumes:
-      - ./screenshots:/screenshots
-    depends_on:
-      chrome:
-        condition: service_healthy
