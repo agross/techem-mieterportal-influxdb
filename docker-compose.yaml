@@ -1,6 +1,8 @@
 services:
   chrome:
     image: ghcr.io/browserless/chromium
+    environment:
+      DEBUG: browserless:*,-trace
     stop_grace_period: 1s
     healthcheck:
       start_interval: 1s
